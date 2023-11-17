@@ -28,7 +28,8 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  mainWindow.setMenu(null);
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -56,31 +57,38 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const WebSocket =require("ws");
-console.log(WebSocket);
+const WebSocket = require("ws");
 const wss = new WebSocket.Server(
   {
     host: "localhost",
     port: 10001,
   },
   () => {
-    console.log("websocket服务器正在监听10001端口");
+    console.log("websocket localhost;10001");
   }
 );
 
 wss.on("connection", function connection(ws) {
+  console.log("connection", ws);
   ws.on("message", (msg) => {
-    console.log("客户端传来的消息", msg.toString());
-    ws.send("客户端传过来的消息，服务端已收到!");
+    wss.clients.forEach(function each(client) {
+      client.send(`${msg}`);
+    });
   });
-  ws.send("启动");
+  ws.send(
+    JSON.stringify({
+      name: "server",
+      message: "启动",
+      time: new Date().toLocaleString(),
+    })
+  );
 });
 
 wss.on("error", (err) => {
-  console.error("服务器错误:", err.message);
+  console.error("error:", err.message);
 });
 
 // 服务器关闭事件监听
 wss.on("close", () => {
-  console.log("服务器关闭!");
+  console.log("close!");
 });
