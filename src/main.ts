@@ -73,6 +73,7 @@ wss.on("connection", function connection(ws) {
   ws.on("message", (msg) => {
     wss.clients.forEach(function each(client) {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
+        console.log("send:", client);
         client.send(`${msg}`);
       }
     });
