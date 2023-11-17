@@ -1,23 +1,22 @@
 <template>
     <div style="margin: 0;padding: 0;">
-        <div>
+        <div style="margin: 0;padding: 0;width: 100%;">
             <span v-if="!editName" @click="editName = !editName" style="cursor: pointer;color: blue;">
-            {{ name || '匿名'}}
+                {{ name || '匿名' }}
             </span>
             <input v-if="editName" v-model="name" placeholder="请输入昵称" />
             <input v-if="!editName" v-model="message" placeholder="发送消息" />
             <button @click="sendMessage">{{ editName ? '确定' : '发送' }}</button>
         </div>
-        <ul style="height: 80vh;overflow: auto;">
-            <div v-for="chat in chats" style="margin: 8px;">
-                <div style="font-weight: 550;">
-                    {{ chat?.time }} - {{ chat?.name }}：
-                </div>
-                <div style="margin:4px;background-color: antiquewhite;min-height: 40px;border-radius: 10px;padding: 8px;">
-                    {{ chat?.message }}
-                </div>
+        <div v-for="chat in chats" :style="{ margin: '8px', textAlign: chat?.name === (name || '匿名') ? 'right' : 'left' }">
+            <div style="font-weight: 550;">
+                {{ chat?.time }} - {{ chat?.name }}
             </div>
-        </ul>
+            <div style="margin:4px;min-height: 40px;border-radius: 10px;padding: 8px;"
+                :style="{ backgroundColor: chat?.name === (name || '匿名') ? 'green' : 'antiquewhite' }">
+                {{ chat?.message }}
+            </div>
+        </div>
     </div>
 </template>
   
@@ -34,7 +33,6 @@ ws.addEventListener('open', () => {
     console.log('open');
 });
 ws.addEventListener('message', (event) => {
-    console.log(event);
     const data = JSON.parse(event.data);
     chats.value.unshift(data);
 });
@@ -49,7 +47,7 @@ const sendMessage = () => {
         return
     }
     const params = {
-        name: name.value,
+        name: name.value || '匿名',
         message: message.value,
         time: new Date().toLocaleString()
     }
