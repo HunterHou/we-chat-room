@@ -5,6 +5,9 @@ import path from "path";
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('update-electron-app')()
+
 app.commandLine.appendSwitch("proxy-bypass-list", "<local>;*,localhost:10001");
 
 const createWindow = () => {

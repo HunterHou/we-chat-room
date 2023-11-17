@@ -32,6 +32,19 @@ const config: ForgeConfig = {
       ],
     }),
   ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: '@HunterHou',
+          name: 'git@github.com:HunterHou/we-chat-room.git'
+        },
+        prerelease: true,
+        draft: true
+      }
+    }
+  ]
 };
 
 export default config;
