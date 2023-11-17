@@ -29,7 +29,7 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.setMenu(null);
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -72,10 +72,13 @@ wss.on("connection", function connection(ws) {
   console.log("connection", ws);
   ws.on("message", (msg) => {
     wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        console.log("send:", client);
-        client.send(`${msg}`);
-      }
+      // client !== ws &&
+      // if (client.readyState === WebSocket.OPEN) {
+      //   console.log("send:", client);
+      //   client.send(`${msg}`);
+      // }
+      console.log("send:", client);
+      client.send(`${msg}`);
     });
   });
   ws.send(

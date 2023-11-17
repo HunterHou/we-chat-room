@@ -1,7 +1,9 @@
 <template>
     <div style="margin: 0;padding: 0;">
         <div>
-            <span v-if="!editName" @click="editName = !editName" style="cursor: pointer;color: blue;">{{ name }}</span>
+            <span v-if="!editName" @click="editName = !editName" style="cursor: pointer;color: blue;">
+            {{ name || '匿名'}}
+            </span>
             <input v-if="editName" v-model="name" placeholder="请输入昵称" />
             <input v-if="!editName" v-model="message" placeholder="发送消息" />
             <button @click="sendMessage">{{ editName ? '确定' : '发送' }}</button>
@@ -42,7 +44,7 @@ const sendMessage = () => {
         editName.value = !editName.value
         return
     };
-    if(!message.value){
+    if (!message.value) {
         alert('必须填写昵称');
         return
     }
