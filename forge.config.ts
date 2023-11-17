@@ -37,7 +37,7 @@ const config: ForgeConfig = {
       name: '@electron-forge/publisher-github',
       config: {
         repository: {
-          owner: '@HunterHou',
+          owner: 'HunterHou',
           name: 'git@github.com:HunterHou/we-chat-room.git'
         },
         prerelease: true,

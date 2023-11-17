@@ -6,7 +6,8 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('update-electron-app')()
+const { updateElectronApp } = require('update-electron-app');
+updateElectronApp(); // additional configuration options available
 
 app.commandLine.appendSwitch("proxy-bypass-list", "<local>;*,localhost:10001");
 
