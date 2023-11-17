@@ -1,8 +1,8 @@
 {
-  "name": "my-new-app",
-  "productName": "my-new-app",
+  "name": "chat-we",
+  "productName": "let's chat ",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "点对点私域聊天",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
