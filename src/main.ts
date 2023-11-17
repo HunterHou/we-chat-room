@@ -70,10 +70,10 @@ const createChatRoom = () => {
     }
   );
 
-  wss.on("connection", function connection(ws) {
+  wss.on("connection", function connection(ws: any) {
     console.log("connection", ws);
-    ws.on("message", (msg) => {
-      wss.clients.forEach(function each(client) {
+    ws.on("message", (msg: never) => {
+      wss.clients.forEach(function each(client: any) {
         console.log("send:", client);
         client.send(`${msg}`);
       });
@@ -87,7 +87,7 @@ const createChatRoom = () => {
     );
   });
 
-  wss.on("error", (err) => {
+  wss.on("error", (err: any) => {
     console.error("error:", err.message);
   });
 
@@ -97,4 +97,4 @@ const createChatRoom = () => {
   });
 };
 
-createChatRoom()
+createChatRoom();
