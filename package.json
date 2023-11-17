@@ -1,7 +1,7 @@
 {
   "name": "chat-we",
   "productName": "let's chat ",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "点对点私域聊天",
   "main": ".vite/build/main.js",
   "scripts": {
