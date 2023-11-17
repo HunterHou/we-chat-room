@@ -58,43 +58,43 @@ app.on("activate", () => {
 // code. You can also put them in separate files and import them here.
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const WebSocket = require("ws");
-const wss = new WebSocket.Server(
-  {
-    host: "localhost",
-    port: 10001,
-  },
-  () => {
-    console.log("websocket localhost;10001");
-  }
-);
 
-wss.on("connection", function connection(ws) {
-  console.log("connection", ws);
-  ws.on("message", (msg) => {
-    wss.clients.forEach(function each(client) {
-      // client !== ws &&
-      // if (client.readyState === WebSocket.OPEN) {
-      //   console.log("send:", client);
-      //   client.send(`${msg}`);
-      // }
-      console.log("send:", client);
-      client.send(`${msg}`);
-    });
-  });
-  ws.send(
-    JSON.stringify({
-      name: "server",
-      message: "启动",
-      time: new Date().toLocaleString(),
-    })
+const createChatRoom = () => {
+  const wss = new WebSocket.Server(
+    {
+      host: "localhost",
+      port: 10001,
+    },
+    () => {
+      console.log("websocket localhost;10001");
+    }
   );
-});
 
-wss.on("error", (err) => {
-  console.error("error:", err.message);
-});
+  wss.on("connection", function connection(ws) {
+    console.log("connection", ws);
+    ws.on("message", (msg) => {
+      wss.clients.forEach(function each(client) {
+        console.log("send:", client);
+        client.send(`${msg}`);
+      });
+    });
+    ws.send(
+      JSON.stringify({
+        name: "server",
+        message: "启动",
+        time: new Date().toLocaleString(),
+      })
+    );
+  });
 
-// 服务器关闭事件监听
-wss.on("close", () => {
-  console.log("close!");
-});
+  wss.on("error", (err) => {
+    console.error("error:", err.message);
+  });
+
+  // 服务器关闭事件监听
+  wss.on("close", () => {
+    console.log("close!");
+  });
+};
+
+createChatRoom()
