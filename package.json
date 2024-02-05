@@ -17,6 +17,9 @@
     "email": "183598821@qq.com"
   },
   "license": "MIT",
+  "repository": {"type": "git",
+    "url": "git@github.com:HunterHou/we-chat-room.git"
+  },
   "devDependencies": {
     "@electron-forge/cli": "^7.0.0",
     "@electron-forge/maker-deb": "^7.0.0",
